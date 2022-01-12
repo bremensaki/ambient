@@ -1,11 +1,11 @@
 function BufferLoader(context, urlList, callback) {
-    this.context = context;
-    this.urlList = urlList;
-    this.onload = callback;
-    this.bufferList = new Array();
-    this.loadCount = 0;
+  this.context = context;
+  this.urlList = urlList;
+  this.onload = callback;
+  this.bufferList = new Array();
+  this.loadCount = 0;
 }
-  
+
 BufferLoader.prototype.loadBuffer = function(url, index) {
   // Load buffer asynchronously
   var request = new XMLHttpRequest();
@@ -42,7 +42,7 @@ BufferLoader.prototype.loadBuffer = function(url, index) {
 
     request.send();
   };
-  
+
 BufferLoader.prototype.load = function() {
   for (var i = 0; i < this.urlList.length; ++i) {
     this.loadBuffer(this.urlList[i], i);
