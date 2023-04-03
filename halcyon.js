@@ -1,5 +1,4 @@
 window.onload = function() {
-
     var bufferLoader = new BufferLoader(
         Audio.audioContext,
         [
@@ -27,7 +26,27 @@ window.onload = function() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    canvas.addEventListener("click", view.handleClick.bind(view), false);
-
     setInterval(view.updateDisplay.bind(view), view.frameRate);
+    setInterval(spawnNote.bind(view), 4000);
+
+    function spawnNote() {
+        var x =  Math.floor(Math.random() * window.innerWidth);
+        var y =  Math.floor(Math.random() * window.innerHeight);
+        var trim = (1 - Math.floor(Math.random() * 70) / 100);
+        var lifetime = Math.floor(Math.random() * 5);
+        var pos = view.clicks.push({x: x, y: y, radius: 0});
+        
+        Audio.play(x%10);
+        
+        var interval = setInterval(audioplay, (view.loopRate * trim));
+        
+        function audioplay() {
+            view.clicks[pos-1].radius = 0;
+            Audio.play(x%10);
+            lifetime--;
+            if (lifetime <= 0){
+                clearInterval(interval);
+            }
+        }
+    };
 };

@@ -6,23 +6,11 @@ function View(canvas) {
     this.loopRate = 4000;
 };
 
-View.prototype.handleClick = function(event) {
-    var view = this;
-    var x = event.offsetX;
-    var y = event.offsetY;
-    var pos = view.clicks.push({x: x, y: y, radius: 0});
-    Audio.play(x%10);
-    setInterval(function() {
-        view.clicks[pos-1].radius = 0;
-        Audio.play(x%10);
-    }, view.loopRate);
-};
-
 View.prototype.updateDisplay = function() {
     var view = this;
     var context = view.canvas.getContext("2d");
     context.clearRect(0, 0, view.canvas.width, view.canvas.height);
-    context.fillStyle = 'black';
+    context.fillStyle = '#581010';
     context.fillRect(0, 0, view.canvas.width, view.canvas.height);
 
     for (var i = 0; i < view.clicks.length; i++) {
