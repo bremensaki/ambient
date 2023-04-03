@@ -43,3 +43,18 @@ canvas {
     float: left;
     padding: 20px;
 }
+
+#play {
+    display: fixed;
+    top: 0;
+    width: 80%;
+}
+
+#play svg {
+    width: 25%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+}

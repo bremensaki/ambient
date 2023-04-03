@@ -2,16 +2,16 @@ window.onload = function() {
     var bufferLoader = new BufferLoader(
         Audio.audioContext,
         [
-            "A4.mp3",
-            "A5.mp3",
-            "C4.mp3",
-            "C5.mp3",
-            "D4.mp3",
-            "D5.mp3",
-            "E4.mp3",
-            "E5.mp3",
-            "G4.mp3",
-            "G5.mp3",
+            "audio/A4.mp3",
+            "audio/A5.mp3",
+            "audio/C4.mp3",
+            "audio/C5.mp3",
+            "audio/D4.mp3",
+            "audio/D5.mp3",
+            "audio/E4.mp3",
+            "audio/E5.mp3",
+            "audio/G4.mp3",
+            "audio/G5.mp3",
         ],
         finishedLoading
     );
@@ -27,13 +27,16 @@ window.onload = function() {
     canvas.height = window.innerHeight;
 
     setInterval(view.updateDisplay.bind(view), view.frameRate);
-    setInterval(spawnNote.bind(view), 4000);
+    document.getElementById("play").addEventListener("click", function (){
+        setInterval(spawnNote.bind(view), 4000);
+        document.getElementById("play").style.display = "none";
+    });
 
     function spawnNote() {
         var x =  Math.floor(Math.random() * window.innerWidth);
         var y =  Math.floor(Math.random() * window.innerHeight);
         var trim = (1 - Math.floor(Math.random() * 70) / 100);
-        var lifetime = Math.floor(Math.random() * 5);
+        var lifetime = Math.floor(Math.random() * 6);
         var pos = view.clicks.push({x: x, y: y, radius: 0});
         
         Audio.play(x%10);
