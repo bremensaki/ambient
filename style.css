@@ -45,7 +45,7 @@ canvas {
 }
 
 #play {
-    display: fixed;
+    display: none;
     top: 0;
     width: 80%;
 }

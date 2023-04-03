@@ -15,5 +15,12 @@ var Audio = {
 		sound.buffer = this.bufferList[i];
 		sound.start(0);
 		sound.stop(this.audioContext.currentTime + 18);
+	},
+	background: function(i) {
+		var sound = this.audioContext.createBufferSource();
+		sound.connect(this.gainNode);
+		sound.buffer = this.bufferList[i];
+		sound.start(0);
+		sound.stop(this.audioContext.currentTime + 120);
 	}
 };

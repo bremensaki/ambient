@@ -3,7 +3,7 @@ function View(canvas) {
     this.clicks = [];
     this.frameRate = 1000/30;
     this.maxRadius = 80;
-    this.loopRate = 4000;
+    this.loopRate = 5000;
 };
 
 View.prototype.updateDisplay = function() {
