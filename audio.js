@@ -26,8 +26,14 @@ var Background = {
 	init: function(trackList) {
 		this.trackList = trackList;
 		this.gainNode = this.audioContext.createGain();
+		this.analyser = this.audioContext.createAnalyser();
+
 		this.gainNode.gain.value = 0.4;
+		this.analyser.fftSize = 256;
+
 		this.gainNode.connect(this.audioContext.destination);
+		this.analyser.connect(this.audioContext.destination);
+
 	},
 	play: function(i, duration) {
 		var sound = this.audioContext.createBufferSource();
@@ -42,6 +48,7 @@ var Background = {
 			  audioData,
 			  (buffer) => {
 				sound.connect(this.gainNode);
+				sound.connect(this.analyser);
 				sound.buffer = buffer;
 				sound.start(0);
 				// A graceful fade would be good here
@@ -49,6 +56,6 @@ var Background = {
 			},
 			function(e){ console.log("Error with decoding audio data" + e.err); });
 		}
-		request.send();
+		request.send();	  
 	},
 };

@@ -4,6 +4,7 @@ window.onload = function() {
     var view = new View(canvas);
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+    var context = view.canvas.getContext("2d");
 
     var backgroundList =
         [
@@ -47,10 +48,11 @@ window.onload = function() {
 
     function startBackground() {
         Background.init(backgroundList);
+        renderEQ();
 
         var duration = 15; // runtime for background in minutes
         Background.play(Math.floor(Math.random() * 5), (duration * 60));
-        setInterval(bgplay, (duration * 60000)); // duration in milliseconds
+        setInterval(bgplay.bind(view), (duration * 60000)); // duration in milliseconds
         function bgplay() {
             Background.play(Math.floor(Math.random() * 5), (duration * 60));
         }
@@ -76,4 +78,32 @@ window.onload = function() {
             }
         }
     };
+
+    function renderEQ() {
+        requestAnimationFrame(renderEQ);
+        var bufferLength = Background.analyser.frequencyBinCount;
+		var dataArray = new Uint8Array(bufferLength);
+
+		var WIDTH = canvas.width;
+    	var HEIGHT = (canvas.height / 4);
+
+    	var barWidth = (WIDTH / bufferLength) * 2.5;
+    	var barHeight;
+    	var x = 0;
+  
+        Background.analyser.getByteFrequencyData(dataArray);
+
+        for (var i = 0; i < bufferLength; i++) {
+          barHeight = dataArray[i];
+
+          var r = barHeight + (25 * (i/bufferLength));
+          var g = 250 * (i/bufferLength);
+          var b = 50;
+
+          context.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
+          context.fillRect(x, 0, barWidth, barHeight);
+
+          x += barWidth + 1;
+        }
+    }
 };
