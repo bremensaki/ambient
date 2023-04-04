@@ -58,3 +58,15 @@ canvas {
     transform: translate(-50%, -50%);
     color: white;
 }
+
+@media only screen and (max-width: 600px) {
+    #titles ul {
+        font-size: large;
+        font-weight: bold;
+    }
+
+    #titles img {
+        display: flex;
+        float: none;
+        }
+}
