@@ -5,6 +5,15 @@ window.onload = function() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
+    var backgroundList =
+        [
+            "audio/background/crowd.mp3",
+            "audio/background/storm.mp3",
+            "audio/background/waves.mp3",
+            "audio/background/rain.mp3",
+            "audio/background/steps.mp3",
+        ];
+
     var bufferLoader = new BufferLoader(
         Audio.audioContext,
         [
@@ -23,39 +32,25 @@ window.onload = function() {
     );
     bufferLoader.load();
 
-    var backgroundLoader = new BufferLoader(
-        // CC0 content from freesound.org currently, need to replace
-        // and normalise volume for all
-        Background.audioContext,
-        [
-            "audio/background/crowd.mp3",
-            "audio/background/storm.mp3",
-            "audio/background/waves.mp3",
-            "audio/background/rain.mp3",
-            "audio/background/steps.mp3",
-        ],
-        finishedBackground
-    );
-
     setInterval(view.updateDisplay.bind(view), view.frameRate);
 
     function finishedLoading(bufferList) {
+        Audio.init(bufferList);
+
         document.getElementById('play').style.display = 'block';
         playbutton.addEventListener("click", function (){
-            backgroundLoader.load();
             playbutton.style.display = "none";
             setInterval(spawnNote.bind(view), view.loopRate);
+            startBackground();
         });
-        Audio.init(bufferList);
     }
 
-    function finishedBackground(bufferList) {
+    function startBackground() {
+        Background.init(backgroundList);
+
         var duration = 15; // runtime for background in minutes
-
-        Background.init(bufferList);
-        Background.play(Math.floor(Math.random() * 5), (duration * 60)); // duration in seconds
-
-        var interval = setInterval(bgplay, (duration * 60000)); // duration in milliseconds
+        Background.play(Math.floor(Math.random() * 5), (duration * 60));
+        setInterval(bgplay, (duration * 60000)); // duration in milliseconds
         function bgplay() {
             Background.play(Math.floor(Math.random() * 5), (duration * 60));
         }
