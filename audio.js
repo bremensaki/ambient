@@ -26,7 +26,7 @@ var Background = {
 	init: function(trackList) {
 		this.trackList = trackList;
 		this.gainNode = this.audioContext.createGain();
-		this.gainNode.gain.value = 0.8;
+		this.gainNode.gain.value = 0.4;
 		this.gainNode.connect(this.audioContext.destination);
 	},
 	play: function(i, duration) {
