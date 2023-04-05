@@ -54,7 +54,9 @@ window.onload = function() {
         Background.play(Math.floor(Math.random() * 5), (duration * 60));
         setInterval(bgplay.bind(view), (duration * 60000)); // duration in milliseconds
         function bgplay() {
+            // console.log("Background reset");
             Background.play(Math.floor(Math.random() * 5), (duration * 60));
+            view.clicks = [];
         }
     }
 
@@ -70,14 +72,22 @@ window.onload = function() {
         var interval = setInterval(audioplay, (view.loopRate * trim));
         
         function audioplay() {
-            view.clicks[pos-1].radius = 0;
+            try {
+                view.clicks[pos-1].radius = 0;
+            } catch (e) {
+                if (!(e instanceof TypeError)) {
+                   // The array is periodically wiped, this is OK
+                   throw e;
+                }
+            }
+  
             Audio.play(x%10);
             lifetime--;
             if (lifetime <= 0){
                 clearInterval(interval);
             }
         }
-    };
+    }
 
     function renderEQ() {
         requestAnimationFrame(renderEQ);
