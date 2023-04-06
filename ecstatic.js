@@ -12,7 +12,7 @@ window.onload = function() {
             "audio/background/storm.mp3",
             "audio/background/waves.mp3",
             "audio/background/rain.mp3",
-            "audio/background/steps.mp3",
+            // "audio/background/steps.mp3",
         ];
 
     var bufferLoader = new BufferLoader(
