@@ -50,7 +50,7 @@ window.onload = function() {
         Background.init(backgroundList);
         renderEQ();
 
-        var duration = 15; // runtime for background in minutes
+        var duration = 15; // runtime for background in minutes, should be less than run length of BG sounds
         Background.play(Math.floor(Math.random() * 5), (duration * 60));
         setInterval(bgplay.bind(view), (duration * 60000)); // duration in milliseconds
         function bgplay() {

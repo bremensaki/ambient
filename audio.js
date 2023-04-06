@@ -28,7 +28,7 @@ var Background = {
 		this.gainNode = this.audioContext.createGain();
 		this.analyser = this.audioContext.createAnalyser();
 
-		this.gainNode.gain.value = 0.4;
+		this.gainNode.gain.value = 0.01;
 		this.analyser.fftSize = 256;
 
 		this.gainNode.connect(this.audioContext.destination);
@@ -47,12 +47,15 @@ var Background = {
 			this.audioContext.decodeAudioData(
 			  audioData,
 			  (buffer) => {
+				this.gainNode.gain.setValueAtTime(0.01, this.audioContext.currentTime);
+				this.gainNode.gain.exponentialRampToValueAtTime(0.6, (this.audioContext.currentTime + 10));
+				this.gainNode.gain.setTargetAtTime(0.01, this.audioContext.currentTime + (duration - 10), 2);
+
 				sound.connect(this.gainNode);
 				sound.connect(this.analyser);
 				sound.buffer = buffer;
 				sound.start(0);
-				// A graceful fade would be good here
-				sound.stop(this.audioContext.currentTime + (duration - 5));
+				sound.stop(this.audioContext.currentTime + duration);
 			},
 			function(e){ console.log("Error with decoding audio data" + e.err); });
 		}
