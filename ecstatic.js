@@ -8,11 +8,11 @@ window.onload = function() {
 
     var backgroundList =
         [
+            "audio/background/yard1.mp3",
             "audio/background/crowd.mp3",
             "audio/background/storm.mp3",
             "audio/background/waves.mp3",
             "audio/background/rain.mp3",
-            // "audio/background/steps.mp3",
         ];
 
     var bufferLoader = new BufferLoader(
